@@ -1,0 +1,462 @@
+/*
+  RootPage.module.css
+*/
+:root {
+  --highlight: #1e90ff;
+  --white: #cdd7f7;
+  --green: rgb(83, 212, 184);
+  --blue: #cdd7f7;
+  --mobile: 600px;
+  --red: rgb(235 87 87);
+  --dblue: #0b192f;
+  --ddblue: #172946;
+}
+
+/*--------------------------------------
+  Generic
+/*--------------------------------------*/
+
+* {
+  font-family: "Roboto", sans-serif;
+}
+.RootPage {
+  padding-bottom: 50px;
+}
+.flexWrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.heading-wrapper h4 {
+  padding-bottom: 25px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  color: var(--blue);
+}
+
+nav .ok-col.ok-col-1 {
+  width: 100px;
+}
+nav .ok-col.ok-col-2 {
+  width: calc(100% - 100px);
+  display: flex;
+  flex-direction: row-reverse;
+}
+nav .ok-col.ok-col-2 a {
+  padding: 5px 25px;
+  text-decoration: none;
+  color: var(--blue);
+  letter-spacing: 0.1px;
+  font-weight: 400;
+}
+header,
+h3.total-count {
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+  color: var(--white);
+}
+h3.total-count {
+  font-size: 14px;
+  margin-bottom: 25px;
+  color: var(--green);
+  font-weight: 400;
+  font-family: "Roboto Mono", monospace;
+  margin-top: -5px;
+}
+h3.total-count strong {
+  font-weight: 600;
+}
+header h1 {
+  color: var(--white);
+}
+.content p {
+  text-align: left;
+  color: rgb(164 174 205);
+}
+
+/*--------------------------------------
+  Modal
+/*--------------------------------------*/
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: auto;
+  background: red;
+  position: fixed;
+  margin: auto;
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 15px;
+  overflow-x: scroll;
+  top: 15px;
+  display: none;
+  z-index: 9;
+  background: rgba(0, 0, 0, 0.001);
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+.modal.active {
+  animation: modalIn 0.6s 1;
+  animation-fill: forwards;
+  top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: centerl;
+}
+span.filter.modal {
+  display: none;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  width: 100vw;
+  top: -100px;
+  max-width: 100%;
+  top: 0;
+  height: calc(100% + 20px);
+  margin-top: -20px;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.2);
+}
+span.filter.modal.active {
+  display: block;
+  transition: 0.4s;
+}
+
+@keyframes modalIn {
+  0% {
+    opacity: 0;
+    top: 15px;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+.closeWrapper {
+  position: relative;
+}
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.heading-wrapper h4.stats {
+  font-size: 14px;
+  font-weight: 300;
+  border-bottom: none;
+  height: auto;
+  padding-bottom: 5px;
+  margin: 0;
+  color: var(--green);
+}
+.close-wrapper {
+  display: flex;
+  align-items: center;
+}
+.close-wrapper .ok-col-1 {
+  width: 200px;
+}
+.close-wrapper .ok-col-2 {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.content {
+  width: 100%;
+  max-width: 900px;
+  padding: 40px 20px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  background: var(--dblue);
+  height: 500px;
+  overflow-x: scroll;
+  padding-top: 10px;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px -1px #000;
+}
+span.loader-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--dblue);
+}
+span.loader-wrapper.removed {
+  display: none;
+}
+.content h4 {
+  color: var(--blue);
+}
+/*--------------------------------------
+  Spell Card Container
+/*--------------------------------------*/
+
+.section {
+  background: red;
+}
+
+.RootPage .loop-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 884px;
+  margin: auto;
+  justify-content: center;
+  animation: spellsIn 0.6s 1;
+  animation-fill-mode: forwards;
+  top: 15px;
+  position: relative;
+  opacity: 0;
+  animation-delay: 0.5s;
+}
+
+@keyframes spellsIn {
+  0% {
+    top: 15px;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.RootPage .loop-wrap > .sc-dkrFOg {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/*--------------------------------------
+  Pagination
+/*--------------------------------------*/
+ul.sc-bcXHqe.hPNVBH.pagination {
+  margin-top: 25px;
+  width: 100%;
+}
+.pagination li {
+  background: #152944;
+  border: none;
+  color: var(--blue);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.pagination li:first-of-type,
+.pagination li:last-of-type {
+  color: var(--green);
+}
+.pagination li:first-of-type {
+  padding-right: 25px;
+  border-left: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  width: 25px;
+}
+.pagination li:last-of-type {
+  padding-left: 25px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  width: 25px;
+}
+.pagination li.active {
+  background: var(--green);
+  color: var(--black);
+}
+/*--------------------------------------
+  Spell cards
+/*--------------------------------------*/
+
+.RootPage .wond {
+  width: 25px;
+}
+.star {
+  width: 22px;
+  cursor: pointer;
+}
+.add-to-favourites {
+  position: absolute;
+  top: 0;
+  right: 0;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  padding-right: 10px;
+}
+.RootPage .add-to-favourites button {
+  background: none;
+  border: none;
+}
+.RootPage .top-section {
+  display: flex;
+  align-items: center;
+}
+.RootPage .top-section .button-wrapper {
+  margin-left: 15px;
+  margin-right: 15px;
+  width: 100%;
+}
+.RootPage .top-section .button-wrapper button {
+  background: none;
+  color: var(--white);
+  border: none;
+  font-weight: bold;
+  text-align: left;
+  line-height: 140%;
+  cursor: pointer;
+  transition: 0.4s;
+  padding: 10px 0;
+}
+.RootPage .top-section .button-wrapper button:hover {
+  color: var(--green);
+  transition: 0.4s;
+}
+.RootPage .card {
+  width: calc(25% - 10px);
+  margin: 5px;
+  background: #172946;
+  padding: 15px;
+  box-sing: border-box;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  box-shadow: 0px 0px 5px -1px #000;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: 10px;
+}
+/*--------------------------------------
+  Notifications
+/*--------------------------------------*/
+
+.notify.notify--type-1.notify--success.notify-autoclose.notification-sig.notify--slide.notify--slideIn {
+  background: var(--ddblue);
+}
+.notify.notify--type-1.notify--success.notify-autoclose.notification-sig.notify--slide.notify--slideIn
+  div {
+  color: var(--white);
+}
+.notify.notify--type-1.notify--error.notify-autoclose.notification-sig.notify--slide.notify--slideIn {
+  background: var(--ddblue);
+}
+.notify.notify--type-1.notify--error.notify-autoclose.notification-sig.notify--slide.notify--slideIn
+  div {
+  color: var(--white);
+}
+
+/*--------------------------------------
+Loader
+/*--------------------------------------*/
+.loader {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 10px solid;
+  border-color: var(--green) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.35)
+    rgba(255, 255, 255, 0.5);
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width: 600px) {
+  /*--------------------------------------
+  Nav
+/*--------------------------------------*/
+  nav {
+    padding: 0;
+  }
+  nav .ok-col.ok-col-2 a {
+    padding: 0 15px;
+  }
+  /*--------------------------------------
+Spell Cards
+/*--------------------------------------*/
+  .RootPage .card {
+    padding: 15px;
+  }
+  .wond-wrapper {
+    width: 100%;
+  }
+  .add-to-favoutes {
+    height: 25px;
+    position: absolute;
+    top: 0;
+    margin-top: 15px;
+    right: 0;
+  }
+  .RootPage .wond {
+    width: 28px;
+  }
+  .RootPage .card {
+    width: calc(50% - 50px);
+  }
+  .RootPage .top-section .button-wrapper button {
+    margin-top: 15px;
+    transition: 0.4s;
+    font-size: 16px;
+    padding-left: 0;
+  }
+  .RootPage .top-section .button-wrapper button:hover {
+    transition: 0.4s;
+    color: var(--green);
+  }
+  .RootPage .top-section .button-wrapper {
+    margin: 0;
+    margin-top: 15px;
+    width: 100%;
+  }
+  .RootPage .top-section {
+    flex-wrap: wrap;
+  }
+  .sub-nav {
+    padding: 15px;
+  }
+  /*--------------------------------------
+Favourites
+/*--------------------------------------*/
+  .add-to-favourites {
+    padding-right: 10px;
+    flex-direction: column;
+    padding-top: 14px;
+  }
+  /*--------------------------------------
+Modal
+/*--------------------------------------*/
+  .modal {
+    margin-top: 0;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    dsplay: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+  }
+  .modal .content {
+    background: var(--green);
+  }
+}
