@@ -29,7 +29,7 @@ export default function AppLayout() {
           </div>
         </div>
       </nav>
-      <div className={styles.content}>
+      <div className={styles.content}  role="main">
         <Outlet />
       </div>
     </div>

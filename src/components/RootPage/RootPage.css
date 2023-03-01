@@ -105,7 +105,8 @@ header h1 {
   top: 15px;
   display: flex;
   align-items: center;
-  justify-content: centerl;
+  justify-content: center;
+  
 }
 span.filter.modal {
   display: none;

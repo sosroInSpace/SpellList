@@ -1,7 +1,7 @@
+import React from "react";
+import { Provider } from "react-redux";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
 import configureMockStore from "redux-mock-store";
 import RootPage from "./RootPage";
 
@@ -15,130 +15,126 @@ describe("RootPage component", () => {
       spells: {
         spells: [
           {
-            index: "acid-arrow",
-            name: "Acid Arrow",
-            url: "/api/spells/acid-arrow",
+            index: "1",
+            name: "Spell 1",
+            url: "/api/spells/1",
           },
           {
-            index: "bless",
-            name: "Bless",
-            url: "/api/spells/bless",
+            index: "2",
+            name: "Spell 2",
+            url: "/api/spells/2",
           },
         ],
-        spell: null,
-        storage: null,
         favourites: [],
+        spell: null,
+        storage: {},
         status: "idle",
         error: null,
       },
     });
   });
 
-  it("should render Spell List header", () => {
+  it("should render the spell list page by default", async () => {
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <RootPage />
-        </MemoryRouter>
+        <RootPage />
       </Provider>
     );
 
-    expect(screen.getByRole("heading", { name: "Spell List" })).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("Spell List")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("Total Count:")).toBeInTheDocument();
+    expect(screen.getAllByRole("button")).toHaveLength(2);
   });
 
-  it("should render My Favourite Spells header when favourites prop is passed", () => {
+  it("should render the favourite spells page when favourites prop is passed", async () => {
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <RootPage favourites />
-        </MemoryRouter>
+        <RootPage favourites />
       </Provider>
     );
 
-    expect(
-      screen.getByRole("heading", { name: "My Favourite Spells" })
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("My Favourite Spells")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("Total Count:")).toBeInTheDocument();
+    expect(screen.getAllByRole("button")).toHaveLength(2);
   });
 
-  it("should render loader when status is loading", () => {
+  it("should display a loading spinner when fetching spells", async () => {
     store = mockStore({
       spells: {
         spells: [],
-        spell: null,
-        storage: null,
         favourites: [],
-        status: "loading",
+        spell: null,
+        storage: {},
+        status: "loading..",
         error: null,
       },
     });
 
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <RootPage />
-        </MemoryRouter>
+        <RootPage />
       </Provider>
     );
 
-    expect(screen.getByRole("status")).toBeInTheDocument();
+    expect(screen.getByTestId("loader")).toBeInTheDocument();
   });
 
-  it("should render No Spells Found message when status is succeeded but spells list is empty", () => {
+  it("should display an error message when there is an error fetching spells", async () => {
     store = mockStore({
       spells: {
         spells: [],
-        spell: null,
-        storage: null,
         favourites: [],
-        status: "succeeded",
-        error: null,
-      },
-    });
-
-    render(
-      <Provider store={store}>
-        <MemoryRouter>
-          <RootPage />
-        </MemoryRouter>
-      </Provider>
-    );
-
-    expect(screen.getByText(/No Spells Found/)).toBeInTheDocument();
-  });
-
-  it("should render error message and retry button when error is present", () => {
-    store = mockStore({
-      spells: {
-        spells: [],
         spell: null,
-        storage: null,
-        favourites: [],
+        storage: {},
         status: "failed",
-        error: {
-          message: "Failed to fetch spells",
-        },
+        error: { message: "Failed to fetch spells" },
       },
     });
 
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <RootPage />
-        </MemoryRouter>
+        <RootPage />
       </Provider>
     );
 
-    expect(screen.getByText(/Failed to fetch spells/)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Click to Retry" })).toBeInTheDocument();
+    expect(screen.getByText("Failed to fetch spells")).toBeInTheDocument();
+    expect(screen.getByText("Click to Retry")).toBeInTheDocument();
   });
 
-  it("should render spells list when status is succeeded and spells list is not empty", () => {
+  it("should open the spell modal when a spell is clicked and close it when the close button is clicked", async () => {
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <RootPage />
-        </MemoryRouter>
+        <RootPage />
       </Provider>
     );
 
-    expect(screen.getByText(/Total Count:/)).toBeInTheDocument();
+    const button = screen.getAllByRole("button")[0];
+
+    userEvent.click(button);
+
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByText("Spell Details")).toBeInTheDocument();
+      expect(screen.getByText("Spell 1")).toBeInTheDocument();
+    });
+
+    const closeButton = screen.getByAltText("x");
+
+    userEvent.click(closeButton);
+
+    expect(screen.queryByText("Spell Details")).not.toBeInTheDocument();
+  });
+
+  it("should add a spell to favourites when the star button is clicked and remove it when clicked again", async () => {
+    render(
+      <Provider store={store}>
+        <RootPage />
+      </Provider>
+    ));
